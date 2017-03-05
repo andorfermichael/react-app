@@ -12,13 +12,21 @@ export default class App extends React.Component {
       entries: PERSONS,
       currentID: 13,
       currentName: '',
-      filterValue: ''
+      currentEditName: '',
+      filterValue: '',
+      editingID: -1
     }
   }
 
   updateCurrentName = (e) => {
     this.setState({
       currentName: e.target.value
+    })
+  };
+
+  updateCurrentEditName = (e) => {
+    this.setState({
+      currentEditName: e.target.value
     })
   };
 
@@ -36,6 +44,30 @@ export default class App extends React.Component {
     }
   };
 
+  editEntry = (item) => {
+    //console.log(item.id);
+    this.setState({
+      currentEditName: item.name,
+      editingID: item.id
+    })
+  };
+
+  submitEntryEdit = (item) => {
+    const data = this.state.entries;
+    for (let i in data) {
+      if (data[i].id == item.id) {
+        data[i].name = this.state.currentEditName;
+        break; //Stop this loop, we found it!
+      }
+    }
+
+    this.setState({
+      entries: data,
+      editingID: -1,
+      currentEditName: ''
+    })
+  };
+
   render() {
     let filteredEntries = this.state.entries.filter(
       (entry) => {
@@ -47,7 +79,7 @@ export default class App extends React.Component {
       <h5>Insert name to add:</h5>
       <Input value={this.state.currentName} onChange={this.updateCurrentName}/>
 
-      <Button value={'+'} onClick={
+      <Button value={'add'} onClick={
         () => {
           if (this.state.currentName !== '') {
             this.setState({
@@ -64,7 +96,7 @@ export default class App extends React.Component {
       <Input value={this.state.filterValue} onChange={this.updateFilterValue}/>
 
       <h5>Persons:</h5>
-      <List onRemoveEntry={this.removeEntry} entries={filteredEntries}/>
+      <List onRemoveEntry={this.removeEntry} onEditEntry={this.editEntry} onSubmitEntryEdit={this.submitEntryEdit} updateCurrentEditName={this.updateCurrentEditName} currentEditName={this.state.currentEditName} editingID={this.state.editingID} entries={filteredEntries}/>
     </div>
   }
 }
