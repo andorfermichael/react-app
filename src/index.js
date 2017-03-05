@@ -26,6 +26,12 @@ class App extends React.Component {
     })
   };
 
+  removeEntry = (index) => {
+    this.setState({
+      entries: [...this.state.entries.slice(0, index), ...this.state.entries.slice(index + 1)]
+    });
+  };
+
   render() {
     let filteredEntries = this.state.entries.filter(
       (entry) => {
@@ -37,7 +43,7 @@ class App extends React.Component {
       <h5>Insert name to add:</h5>
       <Input value={this.state.inputValue} onChange={this.updateCurrentValue}/>
 
-      <Button onClick={
+      <AddButton onClick={
         () => {
           this.setState({
             entries: [...this.state.entries, this.state.inputValue],
@@ -51,31 +57,41 @@ class App extends React.Component {
       <Input value={this.state.filterValue} onChange={this.updateFilterValue}/>
 
       <h5>Persons:</h5>
-      <List entries={filteredEntries}/>
+      <List onRemoveEntry={this.removeEntry} entries={filteredEntries}/>
     </div>
   }
 }
 
 // Stateless Component
-function List({entries}) {
+function List({onRemoveEntry, entries}) {
   return <div>
       {
         entries.map(
           (entry, index) =>
-          <Person key={index} name={entry}/>)
+          <Person onClick={onRemoveEntry.bind(null, index)} key={index} name={entry}/>
+        )
       }
     </div>
 }
 
 // Stateless Component
-function Button({onClick}) {
+function AddButton({onClick}) {
   return <button onClick={onClick}>+</button>
 }
 
 // Stateless Component
-function Person ({name}) {
+function RemoveButton({onClick}) {
+  return <button onClick={onClick}>-</button>
+}
+
+// Stateless Component
+function Person ({onClick, name}) {
   // React splits this up into further components, Name = static, properties.name = dynamic
-  return <div className="person">Name: {name}</div>
+  return <div className="person">
+    Name: {name}
+    <RemoveButton onClick={onClick}/>
+
+  </div>
 }
 Person.propTypes = {
   name: React.PropTypes.string
