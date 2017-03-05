@@ -1,6 +1,6 @@
 import React from 'react';
 import Input from './input';
-import AddButton from './add-button';
+import Button from './button';
 import List from './list';
 import {PERSONS} from './persons'
 
@@ -47,7 +47,7 @@ export default class App extends React.Component {
       <h5>Insert name to add:</h5>
       <Input value={this.state.currentName} onChange={this.updateCurrentName}/>
 
-      <AddButton onClick={
+      <Button value={'+'} onClick={
         () => {
           this.setState({
             entries: [...this.state.entries, {id: this.state.currentID, name: this.state.currentName}],
