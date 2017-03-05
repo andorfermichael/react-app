@@ -49,11 +49,13 @@ export default class App extends React.Component {
 
       <Button value={'+'} onClick={
         () => {
-          this.setState({
-            entries: [...this.state.entries, {id: this.state.currentID, name: this.state.currentName}],
-            currentID: this.state.currentID + 1,
-            currentName: ''
-          })
+          if (this.state.currentName !== '') {
+            this.setState({
+              entries: [...this.state.entries, {id: this.state.currentID, name: this.state.currentName}],
+              currentID: this.state.currentID + 1,
+              currentName: ''
+            })
+          }
         }
       }/>
 
