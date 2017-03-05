@@ -2,21 +2,23 @@ import React from 'react';
 import Input from './input';
 import AddButton from './add-button';
 import List from './list';
+import {PERSONS} from './persons'
 
 // Statefull Component
 export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      entries: ['Mike', 'Alex', 'Berni', 'Daniel', 'Sepp', 'Konrad', 'Magda', 'Ryan', 'Seb', 'Steffi', 'Vera', 'Vikki'],
-      inputValue: '',
+      entries: PERSONS,
+      currentID: 13,
+      currentName: '',
       filterValue: ''
     }
   }
 
-  updateCurrentValue = (e) => {
+  updateCurrentName = (e) => {
     this.setState({
-      inputValue: e.target.value
+      currentName: e.target.value
     })
   };
 
@@ -26,28 +28,31 @@ export default class App extends React.Component {
     })
   };
 
-  removeEntry = (index) => {
-    this.setState({
-      entries: [...this.state.entries.slice(0, index), ...this.state.entries.slice(index + 1)]
-    });
+  removeEntry = (item) => {
+    const newState = this.state.entries;
+    if (newState.indexOf(item) > -1) {
+      newState.splice(newState.indexOf(item), 1);
+      this.setState({entries: newState})
+    }
   };
 
   render() {
     let filteredEntries = this.state.entries.filter(
       (entry) => {
-        return entry.indexOf(this.state.filterValue) !== -1
+        return entry['name'].indexOf(this.state.filterValue) !== -1
       }
     );
 
     return <div>
       <h5>Insert name to add:</h5>
-      <Input value={this.state.inputValue} onChange={this.updateCurrentValue}/>
+      <Input value={this.state.currentName} onChange={this.updateCurrentName}/>
 
       <AddButton onClick={
         () => {
           this.setState({
-            entries: [...this.state.entries, this.state.inputValue],
-            inputValue: ''
+            entries: [...this.state.entries, {id: this.state.currentID, name: this.state.currentName}],
+            currentID: this.state.currentID + 1,
+            currentName: ''
           })
         }
       }/>

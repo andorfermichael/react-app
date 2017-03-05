@@ -7,7 +7,7 @@ export default function List({onRemoveEntry, entries}) {
     {
       entries.map(
         (entry, index) =>
-          <Person onClick={onRemoveEntry.bind(null, index)} key={index} name={entry}/>
+          <Person onClick={onRemoveEntry.bind(null, entry)} key={entry.id} name={entry.name}/>
       )
     }
   </div>
