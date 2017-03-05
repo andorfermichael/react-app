@@ -9,7 +9,8 @@ class App extends React.Component {
     super();
     this.state = {
       entries: ['Stefanie', 'Sepp', 'Alex'],
-      inputValue: ''
+      inputValue: '',
+      filterValue: ''
     }
   }
 
@@ -19,8 +20,21 @@ class App extends React.Component {
     })
   };
 
+  updateFilterValue = (e) => {
+    this.setState({
+      filterValue: e.target.value
+    })
+  };
+
   render() {
+    let filteredEntries = this.state.entries.filter(
+      (entry) => {
+        return entry.indexOf(this.state.filterValue) !== -1
+      }
+    );
+
     return <div>
+      <h5>Insert name to add:</h5>
       <Input value={this.state.inputValue} onChange={this.updateCurrentValue}/>
 
       <Button onClick={
@@ -31,7 +45,13 @@ class App extends React.Component {
           })
         }
       }/>
-      <List entries={this.state.entries}/>
+
+      <br/>
+      <h5>Insert name to filter for:</h5>
+      <Input value={this.state.filterValue} onChange={this.updateFilterValue}/>
+
+      <h5>Persons:</h5>
+      <List entries={filteredEntries}/>
     </div>
   }
 }
