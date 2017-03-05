@@ -8,7 +8,7 @@ export default function Person ({onRemoveEntry, onEditEntry, onSubmitEntryEdit, 
 
   if (editingID === entryID) {
     return <div className="person">
-      <Input value={currentEditName} onChange={updateCurrentEditName}/> <Button value={'save'} onClick={onSubmitEntryEdit}/>
+        <Input value={currentEditName} onChange={updateCurrentEditName}/> <Button value={'save'} onClick={onSubmitEntryEdit}/>
     </div>
   } else {
     return <div className="person">
