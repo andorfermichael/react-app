@@ -8,7 +8,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      entries: ['Mike, Alex, Berni, Daniel, Sepp, Konrad, Magda, Ryan, Seb, Steffi', 'Vera', 'Vikki'],
+      entries: ['Mike', 'Alex', 'Berni', 'Daniel', 'Sepp', 'Konrad', 'Magda', 'Ryan', 'Seb', 'Steffi', 'Vera', 'Vikki'],
       inputValue: '',
       filterValue: ''
     }
