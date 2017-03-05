@@ -5,17 +5,19 @@ import Input from './input';
 // Stateless Component
 export default function Person ({onRemoveEntry, onEditEntry, onSubmitEntryEdit, updateCurrentEditName, currentEditName, entryID, editingID, name}) {
   // React splits this up into further components, Name = static, properties.name = dynamic
-  
+
   if (editingID === entryID) {
-    return <div>
+    return <div className="person">
       <Input value={currentEditName} onChange={updateCurrentEditName}/> <Button value={'save'} onClick={onSubmitEntryEdit}/>
     </div>
   } else {
-    return <p className="person">
-      {name}
-      <Button value={'remove'} onClick={onRemoveEntry}/>
-      <Button value={'edit'} onClick={onEditEntry}/>
-    </p>
+    return <div className="person">
+      <p className="person-name">{name}</p>
+      <div className="person-actions">
+        <Button value={'remove'} onClick={onRemoveEntry}/>
+        <Button value={'edit'} onClick={onEditEntry}/>
+      </div>
+    </div>
   }
 }
 Person.propTypes = {

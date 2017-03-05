@@ -55,7 +55,7 @@ export default class App extends React.Component {
   submitEntryEdit = (item) => {
     const data = this.state.entries;
     for (let i in data) {
-      if (data[i].id == item.id) {
+      if (data[i].id === item.id) {
         data[i].name = this.state.currentEditName;
         break; //Stop this loop, we found it!
       }
@@ -76,27 +76,36 @@ export default class App extends React.Component {
     );
 
     return <div>
-      <h5>Insert name to add:</h5>
-      <Input value={this.state.currentName} onChange={this.updateCurrentName}/>
+      <h1>Mike's first react app!</h1>
 
-      <Button value={'add'} onClick={
-        () => {
-          if (this.state.currentName !== '') {
-            this.setState({
-              entries: [...this.state.entries, {id: this.state.currentID, name: this.state.currentName}],
-              currentID: this.state.currentID + 1,
-              currentName: ''
-            })
-          }
-        }
-      }/>
+      <div className="input-components">
+        <div className="name-add">
+          <p className="input-label">Name:</p>
+          <Input value={this.state.currentName} onChange={this.updateCurrentName}/>
 
-      <br/>
-      <h5>Insert name to filter for:</h5>
-      <Input value={this.state.filterValue} onChange={this.updateFilterValue}/>
+          <Button value={'add'} onClick={
+            () => {
+              if (this.state.currentName !== '') {
+                this.setState({
+                  entries: [...this.state.entries, {id: this.state.currentID, name: this.state.currentName}],
+                  currentID: this.state.currentID + 1,
+                  currentName: ''
+                })
+              }
+            }
+          }/>
+        </div>
 
-      <h5>Persons:</h5>
-      <List onRemoveEntry={this.removeEntry} onEditEntry={this.editEntry} onSubmitEntryEdit={this.submitEntryEdit} updateCurrentEditName={this.updateCurrentEditName} currentEditName={this.state.currentEditName} editingID={this.state.editingID} entries={filteredEntries}/>
+        <div className="name-filter">
+          <p className="input-label">Filter:</p>
+          <Input value={this.state.filterValue} onChange={this.updateFilterValue}/>
+        </div>
+      </div>
+
+      <div className="list-person">
+        <hp className="text-label">Persons:</hp>
+        <List onRemoveEntry={this.removeEntry} onEditEntry={this.editEntry} onSubmitEntryEdit={this.submitEntryEdit} updateCurrentEditName={this.updateCurrentEditName} currentEditName={this.state.currentEditName} editingID={this.state.editingID} entries={filteredEntries}/>
+      </div>
     </div>
   }
 }
