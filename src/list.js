@@ -7,7 +7,16 @@ export default function List({onRemoveEntry, onEditEntry, onSubmitEntryEdit, upd
     {
       entries.map(
         (entry, index) =>
-          <Person onRemoveEntry={onRemoveEntry.bind(null, entry)} onEditEntry={onEditEntry.bind(null, entry)} onSubmitEntryEdit={onSubmitEntryEdit.bind(null, entry)} updateCurrentEditName={updateCurrentEditName} currentEditName={currentEditName} editingID={editingID} key={entry.id} entryID={entry.id} name={entry.name}/>
+          <Person onRemoveEntry={() => {return onRemoveEntry && onRemoveEntry(entry)}}
+                  onEditEntry={() => {return onEditEntry && onEditEntry(entry)}}
+                  onSubmitEntryEdit={() => {return onSubmitEntryEdit && onSubmitEntryEdit(entry)}}
+                  updateCurrentEditName={updateCurrentEditName}
+                  currentEditName={currentEditName}
+                  editingID={editingID}
+                  key={entry.id}
+                  entryID={entry.id}
+                  name={entry.name}
+          />
       )
     }
   </div>
