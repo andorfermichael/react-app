@@ -3,19 +3,17 @@ import Button from './button';
 import Input from './input';
 
 // Stateless Component
-export default function Person ({onRemoveEntry, onEditEntry, onSubmitEntryEdit, updateCurrentEditName, currentEditName, entryID, editingID, name}) {
-  // React splits this up into further components, Name = static, properties.name = dynamic
-
-  if (editingID === entryID) {
+export default function Person (props) {
+  if (props.props.editingID === props.entryID) {
     return <div className="person">
-        <Input value={currentEditName} onChange={updateCurrentEditName}/> <Button value={'save'} onClick={onSubmitEntryEdit}/>
+        <Input value={props.props.currentEditName} onChange={props.updateCurrentEditName}/> <Button value={'save'} onClick={props.onSubmitEntryEdit}/>
     </div>
   } else {
     return <div className="person">
-      <p className="person-name">{name}</p>
+      <p className="person-name">{props.name}</p>
       <div className="person-actions">
-        <Button value={'remove'} onClick={onRemoveEntry}/>
-        <Button value={'edit'} onClick={onEditEntry}/>
+        <Button value={'remove'} onClick={props.onRemoveEntry}/>
+        <Button value={'edit'} onClick={props.onEditEntry}/>
       </div>
     </div>
   }
